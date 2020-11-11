@@ -49,7 +49,7 @@ If you already have DNS servers in place within your Azure virtual network, or i
 On your on-premises DNS servers, create a conditional forwarder using `Add-DnsServerConditionalForwarderZone`. This conditional forwarder must be deployed on all of your on-premises DNS servers to be effective at properly forwarding traffic to Azure. Remember to replace `<azure-dns-server-ip>` with the appropriate IP addresses for your environment.
 
 ```powershell
-$vnetDnsServers = "<azure-dns-server-ip>", "<azure-dns-server-ip>"
+$vnetDnsServers = [IPAddress] "<azure-dns-server-ip>", "<azure-dns-server-ip>"
 
 $storageAccountEndpoint = Get-AzContext | `
     Select-Object -ExpandProperty Environment | `
@@ -65,7 +65,7 @@ On the DNS servers within your Azure virtual network, you also will need to put 
 ```powershell
 Add-DnsServerConditionalForwarderZone `
         -Name $storageAccountEndpoint `
-        -MasterServers "168.63.129.16"
+        -MasterServers 168.63.129.16
 ```
 
 ## Using the Azure Files Hybrid module to configure DNS forwarding
